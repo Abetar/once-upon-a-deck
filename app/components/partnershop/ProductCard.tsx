@@ -4,9 +4,9 @@ import Image from "next/image";
 import { useCart } from "./cart/CartContext";
 
 interface ProductCardProps {
-  id: number;
+  id: string;
   name: string;
-  price: number;
+  price: number; // aquí sigue siendo number, pero 0 = cotizar
   game: string;
   image: string;
   rarity: string;
@@ -22,11 +22,13 @@ export function ProductCard({
 }: ProductCardProps) {
   const { addItem } = useCart();
 
+  const isQuoteOnly = price === 0;
+
   const handleAddToCart = () => {
     addItem({
       id,
       name,
-      price,
+      price, // se queda en 0, pero lo tratamos como "cotizar"
       game,
       image,
       rarity,
@@ -43,26 +45,27 @@ export function ProductCard({
           fill
           className="object-cover object-center transition-transform duration-300 group-hover:scale-105"
         />
-
-        {/* Aura mística */}
-        <div className="pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-t from-transparent via-transparent to-[#7C3AED]/20 group-hover:animate-aura-glow" />
       </div>
 
-      {/* Info */}
       <h3 className="text-sm font-semibold text-gray-100">{name}</h3>
       <p className="mt-1 text-xs text-gray-400">
         {game} · {rarity}
       </p>
 
-      {/* Precio */}
-      <p className="mt-3 text-lg font-bold text-[#F4D58D]">${price}</p>
+      {/* Precio / Cotizar */}
+      {isQuoteOnly ? (
+        <p className="mt-3 inline-flex rounded-full bg-[#F4D58D]/10 px-3 py-1 text-xs font-semibold text-[#F4D58D]">
+          Cotizar por WhatsApp
+        </p>
+      ) : (
+        <p className="mt-3 text-lg font-bold text-[#F4D58D]">${price}</p>
+      )}
 
-      {/* Botón */}
       <button
         onClick={handleAddToCart}
         className="mt-4 w-full rounded-lg bg-[#F4D58D] py-2 text-sm font-semibold text-[#050816] transition hover:bg-[#C9A656]"
       >
-        Agregar al carrito
+        {isQuoteOnly ? "Agregar para cotizar" : "Agregar al carrito"}
       </button>
     </div>
   );

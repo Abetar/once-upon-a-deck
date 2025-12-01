@@ -44,11 +44,11 @@ export function HeroSection() {
               Ver cartas en la tienda
             </Link>
             <Link
-              href="https://wa.me/5210000000000"
+              href="/partnershop"
               target="_blank"
               className="rounded-full border border-[#7C3AED] bg-[#050816] px-6 py-2 text-sm font-semibold text-gray-200 shadow-md shadow-black/40 transition hover:bg-[#7C3AED]/20 hover:border-[#F4D58D] hover:shadow-mystic"
             >
-              Escribir por WhatsApp
+              Ver nuestra tienda de Partners
             </Link>
           </div>
         </div>

@@ -5,6 +5,7 @@ import { Header } from "./components/layout/Header";
 import { Footer } from "./components/layout/Footer";
 import { WhatsAppFloatingButton } from "./components/layout/WhatsAppFloatingButton";
 import { RootProviders } from "./components/layout/RootProviders";
+import { ScrollToTopButton } from "./components/common/ScrollToTopButton";
 
 export const metadata: Metadata = {
   title: "Once Upon a Deck – Venta de cartas TCG en Monterrey",
@@ -25,6 +26,7 @@ export default function RootLayout({
           <main>{children}</main>
           <Footer />
           <WhatsAppFloatingButton />
+          <ScrollToTopButton />
         </RootProviders>
       </body>
     </html>

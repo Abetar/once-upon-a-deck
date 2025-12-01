@@ -7,13 +7,16 @@ import { ShippingInfoSection } from "./components/home/ShippingInfoSection";
 import { TrustSection } from "./components/home/TrustSection";
 import { FAQSection } from "./components/home/FAQSection";
 import { FinalCTASection } from "./components/home/FinalCTASection";
-
+import { PartnerSection } from "./components/home/PartnerSection";
+import { PartnerFaqSection } from "./components/home/PartnerFaqSection";
 
 
 export default function HomePage() {
   return (
     <>
       <HeroSection />
+      <PartnerSection />
+      <PartnerFaqSection />
       <HighlightStrip />
       <GamesShowcaseSection />
       <HowToBuySection />

@@ -1,3 +1,5 @@
+// components/tienda/ProductGrid.tsx
+
 import { ProductCard } from "./ProductCard";
 import type { Product } from "./productsData";
 
