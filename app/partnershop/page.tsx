@@ -6,6 +6,7 @@ import { ProductGrid } from "../components/partnershop/ProductGrid";
 import { CartSummary } from "../components/partnershop/CartSummary";
 import type { Product } from "../components/partnershop/productsData";
 import { fallbackProducts } from "../components/partnershop/productsData";
+import { GoToCartButton } from "../components/common/GoToCartButton";
 
 export default function TiendaPage() {
   const [products, setProducts] = useState<Product[]>([]);

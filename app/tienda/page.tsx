@@ -6,6 +6,7 @@ import type { Product } from "../components/partnershop/productsData";
 import { CartProvider } from "../components/partnershop/cart/CartContext";
 import { ProductGrid } from "../components/partnershop/ProductGrid";
 import { CartSummary } from "../components/partnershop/CartSummary";
+import { GoToCartButton } from "../components/common/GoToCartButton";
 
 const GAME_OPTIONS = [
   { value: "all", label: "Todos" },
@@ -212,6 +213,7 @@ export default function TiendaPage() {
 
             <CartSummary />
           </div>
+          <GoToCartButton />
         </section>
       </main>
     </CartProvider>

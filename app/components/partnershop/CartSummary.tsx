@@ -21,7 +21,7 @@ export function CartSummary() {
 
     for (const item of items) {
       const isQuote = item.price === 0;
-      const priceLabel = isQuote ? "Cotizar" : `$${item.price}`;
+      const priceLabel = isQuote ? "Cotizar" : `$${item.price} MXN`;
       lines.push(
         `• ${item.name} (${item.game} · ${item.rarity}) x${item.quantity} - ${priceLabel}`
       );
@@ -30,7 +30,7 @@ export function CartSummary() {
     lines.push("");
     if (totalPrice > 0) {
       lines.push(
-        `Subtotal estimado (solo cartas con precio definido): $${totalPrice}`
+        `Subtotal estimado (solo cartas con precio definido): $${totalPrice} MXN`
       );
     }
     if (hasQuoteItems) {
@@ -48,8 +48,11 @@ export function CartSummary() {
 
   if (!items.length) {
     return (
-      <div className="rounded-2xl border border-white/10 bg-[#0B1020] p-4 text-xs text-gray-300">
-        <p className="font-semibold text-[#F4D58D] mb-1">
+      <div
+        id="cart-section" // 👈 para que el botón 'Ir al carrito' también funcione cuando está vacío
+        className="rounded-2xl border border-white/10 bg-[#0B1020] p-4 text-xs text-gray-300"
+      >
+        <p className="mb-1 font-semibold text-[#F4D58D]">
           Tu carrito está vacío.
         </p>
         <p>Agrega cartas para comenzar tu pedido ✨</p>
@@ -58,13 +61,16 @@ export function CartSummary() {
   }
 
   return (
-    <aside className="rounded-2xl border border-white/10 bg-[#0B1020] p-4 text-xs text-gray-100">
+    <aside
+      id="cart-section" // 👈 clave para el scroll desde el botón flotante
+      className="rounded-2xl border border-white/10 bg-[#0B1020] p-4 text-xs text-gray-100"
+    >
       <h2 className="mb-2 text-sm font-semibold text-[#F4D58D]">Tu pedido</h2>
 
       <ul className="mb-3 max-h-64 space-y-2 overflow-y-auto pr-1">
         {items.map((item) => {
           const isQuote = item.price === 0;
-          const priceLabel = isQuote ? "Cotizar" : `$${item.price}`;
+          const priceLabel = isQuote ? "Cotizar" : `$${item.price} MXN`;
 
           return (
             <li key={item.id} className="flex justify-between gap-2">
@@ -85,7 +91,9 @@ export function CartSummary() {
       {totalPrice > 0 && (
         <p className="mb-2 text-[11px] text-gray-300">
           Subtotal (solo cartas con precio definido):{" "}
-          <span className="font-semibold text-[#F4D58D]">${totalPrice}</span>
+          <span className="font-semibold text-[#F4D58D]">
+            ${totalPrice} MXN
+          </span>
         </p>
       )}
 
