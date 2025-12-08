@@ -1,4 +1,3 @@
-// components/layout/Header.tsx
 "use client";
 
 import { useState } from "react";
@@ -18,7 +17,7 @@ export function Header() {
         <Link href="/" className="flex items-center gap-3" onClick={closeMenu}>
           <div className="relative h-9 w-9 overflow-hidden rounded-xl bg-black">
             <Image
-              src="/logo-once-upon-a-deck.png" // ajusta si tu logo se llama distinto
+              src="/logo-once-upon-a-deck.png"
               alt="Once Upon a Deck logo"
               fill
               className="object-contain"
@@ -29,7 +28,7 @@ export function Header() {
               Once Upon a Deck
             </p>
             <p className="text-[11px] text-gray-400">
-              Partner Shop de cartas TCG
+              Store de cartas TCG en MTY
             </p>
           </div>
         </Link>
@@ -39,12 +38,40 @@ export function Header() {
           <Link href="/" className="hover:text-[#F4D58D]">
             Inicio
           </Link>
-          <Link href="/partnershop" className="hover:text-[#F4D58D]">
-            Partner Shop
+
+          <Link
+            href="/once-upon-a-deck-store"
+            className="hover:text-[#F4D58D]"
+          >
+            Once Upon a Deck Store
           </Link>
-          <Link href="/tienda" className="hover:text-[#F4D58D]">
-            Tienda
-          </Link>
+
+          {/* Dropdown FAQs */}
+          <div className="relative group">
+            <button
+              type="button"
+              className="inline-flex items-center gap-1 hover:text-[#F4D58D]"
+            >
+              <span>FAQs</span>
+              <span className="text-xs">▾</span>
+            </button>
+
+            <div className="pointer-events-none absolute right-0 mt-2 hidden w-52 rounded-xl border border-white/10 bg-[#050816] p-2 text-xs text-gray-200 shadow-lg shadow-black/40 group-hover:pointer-events-auto group-hover:block">
+              <Link
+                href="/faqs"
+                className="block rounded-lg px-3 py-2 hover:bg-white/5 hover:text-[#F4D58D]"
+              >
+                FAQs Clientes
+              </Link>
+              <Link
+                href="/partners-faq"
+                className="mt-1 block rounded-lg px-3 py-2 hover:bg-white/5 hover:text-[#F4D58D]"
+              >
+                FAQs Partners
+              </Link>
+            </div>
+          </div>
+
           <Link
             href="https://www.instagram.com/onceupon_adeck/"
             target="_blank"
@@ -52,8 +79,9 @@ export function Header() {
           >
             Instagram
           </Link>
+
           <Link
-            href="https://wa.me/52XXXXXXXXXX" // 👉 pon aquí el número real
+            href="https://wa.me/52XXXXXXXXXX"
             target="_blank"
             className="rounded-full bg-[#25D366] px-3 py-1 text-xs font-semibold text-[#050816] hover:bg-[#1EB555]"
           >
@@ -61,7 +89,7 @@ export function Header() {
           </Link>
         </nav>
 
-        {/* Botón mobile (hamburguesa) */}
+        {/* Botón mobile */}
         <button
           type="button"
           onClick={toggleMenu}
@@ -69,7 +97,7 @@ export function Header() {
           aria-label="Abrir menú"
         >
           {isOpen ? (
-            // Icono X
+            // X
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -84,7 +112,7 @@ export function Header() {
               <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
           ) : (
-            // Icono hamburguesa
+            // Hamburguesa
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -103,7 +131,7 @@ export function Header() {
         </button>
       </div>
 
-      {/* Menú mobile desplegable */}
+      {/* Menú mobile */}
       {isOpen && (
         <nav className="border-t border-white/10 bg-[#050816]/95 px-4 pb-4 pt-2 text-sm text-gray-200 md:hidden">
           <ul className="flex flex-col gap-2">
@@ -118,20 +146,29 @@ export function Header() {
             </li>
             <li>
               <Link
-                href="/partnershop"
-                className="block rounded-lg px-2 py-1 hover:bg:white/5 hover:text-[#F4D58D]"
+                href="/once-upon-a-deck-store"
+                className="block rounded-lg px-2 py-1 hover:bg-white/5 hover:text-[#F4D58D]"
                 onClick={closeMenu}
               >
-                Partner Shop
+                Once Upon a Deck Store
               </Link>
             </li>
             <li>
               <Link
-                href="/tienda"
+                href="/faqs"
                 className="block rounded-lg px-2 py-1 hover:bg-white/5 hover:text-[#F4D58D]"
                 onClick={closeMenu}
               >
-                Tienda
+                FAQs Clientes
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/partners-faq"
+                className="block rounded-lg px-2 py-1 hover:bg-white/5 hover:text-[#F4D58D]"
+                onClick={closeMenu}
+              >
+                FAQs Partners
               </Link>
             </li>
             <li>
@@ -146,7 +183,7 @@ export function Header() {
             </li>
             <li>
               <Link
-                href="https://wa.me/52XXXXXXXXXX" // 👉 número real aquí
+                href="https://wa.me/52XXXXXXXXXX"
                 target="_blank"
                 className="mt-1 inline-flex w-full items-center justify-center rounded-full bg-[#25D366] px-3 py-2 text-xs font-semibold text-[#050816] hover:bg-[#1EB555]"
                 onClick={closeMenu}

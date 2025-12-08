@@ -38,37 +38,36 @@ export function HeroSection() {
 
           <div className="flex flex-wrap gap-3 pt-2">
             <Link
-              href="/tienda"
+              href="/once-upon-a-deck-store"
               className="rounded-full bg-[#F4D58D] px-6 py-2 text-sm font-semibold text-[#050816] shadow-md shadow-black/40 transition hover:bg-[#C9A656] hover:shadow-mystic"
             >
               Ver cartas en la tienda
             </Link>
             <Link
-              href="/partnershop"
+              href="https://wa.me/+528110701423"
               target="_blank"
               className="rounded-full border border-[#7C3AED] bg-[#050816] px-6 py-2 text-sm font-semibold text-gray-200 shadow-md shadow-black/40 transition hover:bg-[#7C3AED]/20 hover:border-[#F4D58D] hover:shadow-mystic"
             >
-              Ver nuestra tienda de Partners
+              Publicar mis cartas
             </Link>
           </div>
         </div>
 
         <div className="relative mt-6 w-full max-w-xs sm:mt-0 sm:max-w-sm animate-mystic-float">
           <div className="absolute -inset-6 rounded-3xl bg-gradient-to-tr from-[#7C3AED]/40 via-transparent to-[#F4D58D]/40 blur-2xl animate-mystic-pulse" />
-          <div className="relative rounded-3xl border border-white/10 bg-[#050816]/80 p-4 shadow-xl shadow-black/50">
-            <div className="flex items-center justify-center">
-              <Image
-                src="/logo-once-upon-a-deck.png"
-                alt="Once Upon a Deck logo"
-                width={260}
-                height={260}
-                className="h-auto w-52 sm:w-60 drop-shadow-[0_0_30px_rgba(244,213,141,0.35)]"
-              />
-            </div>
-            <p className="mt-4 text-center text-xs text-gray-400">
-              Tu próxima carta favorita ya está escrita en este cuento.
-            </p>
+          <div className="flex items-center justify-center">
+            <Image
+              src="/logo-once-upon-a-deck.png"
+              alt="Once Upon a Deck logo"
+              width={260}
+              height={260}
+              style={{ borderRadius: 16 }}
+              className="h-auto w-52 sm:w-60 drop-shadow-[0_0_30px_rgba(244,213,141,0.35)]"
+            />
           </div>
+          {/* <p className="mt-4 text-center text-xs text-gray-400">
+            Tu próxima carta favorita ya está escrita en este cuento.
+          </p> */}
         </div>
       </Container>
     </section>

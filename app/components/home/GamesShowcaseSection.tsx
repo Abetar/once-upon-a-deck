@@ -1,63 +1,73 @@
-// components/home/GamesShowcaseSection.tsx
-import { Container } from "../../components/common/Container";
-import { SectionHeader } from "../../components/common/SectionHeader";
+// app/components/home/GamesShowcaseSection.tsx
+"use client";
 
-const games = [
+import Image from "next/image";
+
+const GAMES = [
   {
-    name: "Pokémon TCG",
-    description:
-      "Cartas para armar decks competitivos, full arts de colección y productos especiales.",
-    tags: ["Coleccionistas", "Competitivo", "Sellado"],
+    name: "Lorcana",
+    image: "/games/lorcana-card.png", // 👈 cambia a tus rutas reales
+  },
+  {
+    name: "Pokémon",
+    image: "/games/pokemon-card.jpg",
   },
   {
     name: "Yu-Gi-Oh!",
-    description:
-      "Staples, handtraps y cartas clave para tu deck, además de cartas raras para vitrina.",
-    tags: ["Meta", "Staples", "Raras"],
+    image: "/games/yugioh-card.jpg",
   },
   {
     name: "Magic: The Gathering",
-    description:
-      "Cartas para Commander, Modern y otros formatos, con foco en piezas que cuentan historias.",
-    tags: ["Commander", "Modern", "Foils"],
+    image: "/games/magic-card.jpg",
+  },
+  {
+    name: "One Piece",
+    image: "/games/onepiece-card.jpg",
   },
 ];
 
 export function GamesShowcaseSection() {
   return (
-    <section className="border-b border-white/5 bg-[#050816] py-12 sm:py-16">
-      <Container>
-        <SectionHeader
-          eyebrow="Juegos"
-          title="El multiverso de tu colección"
-          subtitle="Nos enfocamos en cartas que realmente quieres jugar, coleccionar o atesorar."
-          align="left"
-        />
+    <section className="border-t border-white/5 bg-[#050816] py-12 lg:py-16">
+      <div className="mx-auto max-w-6xl px-4">
+        {/* Encabezado */}
+        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#F4D58D]">
+          Juegos
+        </p>
+        <h2 className="mt-2 text-2xl font-bold text-gray-100 lg:text-3xl">
+          El multiverso de tu colección
+        </h2>
+        <p className="mt-2 max-w-2xl text-sm text-gray-300">
+          Trabajamos con los TCG que más juegas y coleccionas. Cada carta tiene
+          su lugar en Once Upon a Deck Store.
+        </p>
 
-        <div className="flex flex-col gap-3 rounded-2xl border border-white/10 bg-[#0B1020] p-4 shadow-sm shadow-black/40 transition-transform transition-shadow hover:-translate-y-1 hover:border-[#F4D58D]/70 hover:shadow-mystic">
-          {games.map((game) => (
+        {/* Grid de “cartas” solo con imagen */}
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          {GAMES.map((game) => (
             <div
               key={game.name}
-              className="flex flex-col gap-3 rounded-2xl border border-white/10 bg-[#0B1020] p-4 shadow-sm shadow-black/40"
+              className="
+                group relative aspect-[3/4]
+                overflow-hidden rounded-2xl
+                border border-white/10
+                bg-[#050816]
+                shadow-md shadow-black/40
+                transition
+                hover:-translate-y-1 hover:border-[#F4D58D]/80 hover:shadow-[#F4D58D]/25
+              "
             >
-              <h3 className="text-lg font-semibold text-gray-50">
-                {game.name}
-              </h3>
-              <p className="text-xs text-gray-400">{game.description}</p>
-              <div className="mt-1 flex flex-wrap gap-2 mb-2">
-                {game.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full bg-[#7C3AED]/15 px-2 py-0.5 text-[10px] font-medium text-[#F4D58D]"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
+              <Image
+                src={game.image}
+                alt={game.name}
+                fill
+                className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                sizes="(max-width: 768px) 50vw, 20vw"
+              />
             </div>
           ))}
         </div>
-      </Container>
+      </div>
     </section>
   );
 }
