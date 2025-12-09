@@ -19,6 +19,7 @@ type AirtableRecord = {
     "Precio"?: number;
     Stock?: number;
     Imagen?: AirtableAttachment[];
+    Sellado?: boolean; // 👈 checkbox en Airtable
   };
 };
 
@@ -80,6 +81,7 @@ export async function GET() {
       image: imageUrl,
       condition: f["Condicion"] ?? "",
       stock: f.Stock ?? 1,
+      sealed: !!f.Sellado, // 👈 nuevo campo normalizado a boolean
     };
   });
 

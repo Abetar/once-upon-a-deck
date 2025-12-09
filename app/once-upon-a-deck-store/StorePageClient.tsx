@@ -9,6 +9,25 @@ import { CartSummary } from "../components/partnershop/CartSummary";
 import type { Product } from "../components/partnershop/productsData";
 import { fallbackProducts } from "../components/partnershop/productsData";
 
+// Normaliza cadenas: minúsculas + sin acentos
+function normalize(str: string): string {
+  return str
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+}
+
+// Parámetro de ?game= (normalizado) -> cadena a buscar en el nombre del juego (normalizado)
+const GAME_FILTER_ALIASES: Record<string, string> = {
+  pokemon: "pokemon",
+  yugioh: "yu-gi-oh",
+  "yu-gi-oh": "yu-gi-oh",
+  magic: "magic",
+  "one-piece": "one piece",
+  onepiece: "one piece",
+  lorcana: "disney",
+};
+
 export function StorePageClient() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -17,6 +36,9 @@ export function StorePageClient() {
   const [searchTerm, setSearchTerm] = useState("");
   const [rarityFilter, setRarityFilter] = useState<"all" | string>("all");
   const [gameFilter, setGameFilter] = useState<string>("all");
+  const [sealedFilter, setSealedFilter] = useState<
+    "all" | "sealed" | "unsealed"
+  >("all");
 
   const searchParams = useSearchParams();
 
@@ -48,22 +70,33 @@ export function StorePageClient() {
     loadProducts();
   }, []);
 
-  // Leer ?game= de la URL y aplicarlo como filtro inicial
+  // Leer ?game= de la URL (viene de GamesShowcaseSection y links directos)
   useEffect(() => {
     const gameFromUrl = searchParams.get("game");
     if (gameFromUrl) {
-      setGameFilter(gameFromUrl.toLowerCase());
+      const normalizedParam = normalize(gameFromUrl);
+      const canonical =
+        GAME_FILTER_ALIASES[normalizedParam] ?? normalizedParam;
+      setGameFilter(canonical);
     }
   }, [searchParams]);
 
-  // Juegos únicos para el select
-  const games = useMemo(
-    () =>
-      Array.from(new Set(products.map((p) => p.game))).sort((a, b) =>
-        a.localeCompare(b)
-      ),
-    [products]
-  );
+  // Juegos únicos para el select: value = nombre normalizado, label = texto original
+  const games = useMemo(() => {
+    const map = new Map<string, string>(); // value -> label
+
+    for (const p of products) {
+      const label = p.game;
+      const value = normalize(label);
+      if (!map.has(value)) {
+        map.set(value, label);
+      }
+    }
+
+    return Array.from(map, ([value, label]) => ({ value, label })).sort(
+      (a, b) => a.label.localeCompare(b.label)
+    );
+  }, [products]);
 
   // Rarezas únicas
   const rarities = useMemo(
@@ -74,7 +107,7 @@ export function StorePageClient() {
     [products]
   );
 
-  // Productos filtrados por nombre + rareza + juego
+  // Productos filtrados por nombre + rareza + juego + sellado
   const filteredProducts = useMemo(() => {
     const term = searchTerm.trim().toLowerCase();
 
@@ -85,15 +118,19 @@ export function StorePageClient() {
       const matchesRarity =
         rarityFilter === "all" || p.rarity === rarityFilter;
 
-      const normalizedGame = p.game.toLowerCase();
+      const normalizedGameName = normalize(p.game);
       const matchesGame =
-        gameFilter === "all" ||
-        normalizedGame === gameFilter ||
-        normalizedGame.includes(gameFilter);
+        gameFilter === "all" || normalizedGameName.includes(gameFilter);
 
-      return matchesName && matchesRarity && matchesGame;
+      const isSealed = !!p.sealed;
+      const matchesSealed =
+        sealedFilter === "all" ||
+        (sealedFilter === "sealed" && isSealed) ||
+        (sealedFilter === "unsealed" && !isSealed);
+
+      return matchesName && matchesRarity && matchesGame && matchesSealed;
     });
-  }, [products, searchTerm, rarityFilter, gameFilter]);
+  }, [products, searchTerm, rarityFilter, gameFilter, sealedFilter]);
 
   // Scroll al carrito (botón flotante mobile)
   const handleScrollToCart = () => {
@@ -158,19 +195,13 @@ export function StorePageClient() {
               </label>
               <select
                 value={gameFilter}
-                onChange={(e) =>
-                  setGameFilter(
-                    e.target.value === "all"
-                      ? "all"
-                      : e.target.value.toLowerCase()
-                  )
-                }
+                onChange={(e) => setGameFilter(e.target.value)}
                 className="w-full rounded-md border border-white/10 bg-[#050816] px-3 py-2 text-xs text-gray-100 outline-none focus:border-[#F4D58D]"
               >
                 <option value="all">Todos</option>
                 {games.map((game) => (
-                  <option key={game} value={game.toLowerCase()}>
-                    {game}
+                  <option key={game.value} value={game.value}>
+                    {game.label}
                   </option>
                 ))}
               </select>
@@ -198,6 +229,26 @@ export function StorePageClient() {
                 ))}
               </select>
             </div>
+
+            {/* Filtro por estado (sellado) */}
+            <div className="w-full md:w-56">
+              <label className="mb-1 block text-[11px] text-gray-300">
+                Estado
+              </label>
+              <select
+                value={sealedFilter}
+                onChange={(e) =>
+                  setSealedFilter(
+                    e.target.value as "all" | "sealed" | "unsealed"
+                  )
+                }
+                className="w-full rounded-md border border-white/10 bg-[#050816] px-3 py-2 text-xs text-gray-100 outline-none focus:border-[#F4D58D]"
+              >
+                <option value="all">Selladas y abiertas</option>
+                <option value="sealed">Solo cartas selladas</option>
+                <option value="unsealed">Solo cartas abiertas</option>
+              </select>
+            </div>
           </div>
 
           <p className="text-[11px] text-gray-400">
@@ -209,7 +260,6 @@ export function StorePageClient() {
         {/* Grid + carrito */}
         <div className="grid gap-8 lg:grid-cols-[minmax(0,2.3fr)_minmax(0,1fr)]">
           <ProductGrid products={filteredProducts} />
-
           <div id="cart-section">
             <CartSummary />
           </div>

@@ -28,6 +28,7 @@ export function ProductGrid({ products }: ProductGridProps) {
           game={product.game}
           image={product.image}
           rarity={product.rarity}
+          sealed={product.sealed}
         />
       ))}
     </div>

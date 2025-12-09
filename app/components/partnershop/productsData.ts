@@ -10,9 +10,10 @@ export type Product = {
   rarity: string;
   condition?: string;
   stock?: number;
+  sealed?: boolean;    // 👈 NUEVO: true si la carta está sellada
 };
 
-// Opcional: productos de fallback por si la API falla (puedes borrarlo si no lo quieres)
+// Opcional: productos de fallback por si la API falla
 export const fallbackProducts: Product[] = [
   {
     id: "fallback-1",
@@ -23,6 +24,7 @@ export const fallbackProducts: Product[] = [
     rarity: "Secret Rare",
     condition: "Near Mint (NM)",
     stock: 1,
+    sealed: false, // 👈 Añado sellado
   },
   {
     id: "fallback-2",
@@ -33,5 +35,6 @@ export const fallbackProducts: Product[] = [
     rarity: "Ultra Rare",
     condition: "Lightly Played (LP)",
     stock: 1,
+    sealed: true, // 👈 Añado sellado
   },
 ];

@@ -10,6 +10,7 @@ interface ProductCardProps {
   game: string;
   image: string;
   rarity: string;
+  sealed?: boolean; // true si la carta está sellada
 }
 
 export function ProductCard({
@@ -19,6 +20,7 @@ export function ProductCard({
   game,
   image,
   rarity,
+  sealed,
 }: ProductCardProps) {
   const { addItem } = useCart();
 
@@ -32,6 +34,7 @@ export function ProductCard({
       game,
       image,
       rarity,
+      // NOTA: no enviamos "sealed" al carrito todavía para no romper el tipo CartItem
     });
   };
 
@@ -47,10 +50,18 @@ export function ProductCard({
         />
       </div>
 
+      {/* Nombre + juego/rareza */}
       <h3 className="text-sm font-semibold text-gray-100">{name}</h3>
       <p className="mt-1 text-xs text-gray-400">
         {game} · {rarity}
       </p>
+
+      {/* Label de sellado */}
+      {sealed && (
+        <span className="mt-2 inline-flex items-center rounded-full border border-emerald-400/60 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-300">
+          Sellada ✨
+        </span>
+      )}
 
       {/* Precio / Cotizar */}
       {isQuoteOnly ? (
