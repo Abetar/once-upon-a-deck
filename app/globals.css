@@ -4,7 +4,10 @@
 
 :root {
   color-scheme: dark;
+  font-family: var(--font-cinzel);
 }
+
+
 
 body {
   background-color: #050816;

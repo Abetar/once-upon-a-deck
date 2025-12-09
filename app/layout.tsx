@@ -6,6 +6,13 @@ import { Footer } from "./components/layout/Footer";
 import { WhatsAppFloatingButton } from "./components/layout/WhatsAppFloatingButton";
 import { RootProviders } from "./components/layout/RootProviders";
 import { ScrollToTopButton } from "./components/common/ScrollToTopButton";
+import { Cinzel } from "next/font/google";
+
+const cinzel = Cinzel({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-cinzel",
+});
 
 export const metadata: Metadata = {
   title: "Once Upon a Deck – Venta de cartas TCG en Monterrey",
@@ -19,8 +26,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es">
-      <body className="min-h-screen bg-[#050816] text-gray-100">
+    <html lang="es" className={cinzel.variable}>
+      <body
+        className={`${cinzel.className} min-h-screen bg-[#050816] text-gray-100`}
+      >
         <RootProviders>
           <Header />
           <main>{children}</main>
