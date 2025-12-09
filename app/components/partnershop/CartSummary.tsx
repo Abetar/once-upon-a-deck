@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import { useCart } from "./cart/CartContext";
 
-const WHATSAPP_NUMBER = "5218112345678"; // <-- cambia a tu número real
+const WHATSAPP_NUMBER = "5218110701423"; // <-- cambia a tu número real
 
 export function CartSummary() {
   const { items, totalItems, totalPrice, clearCart } = useCart();
