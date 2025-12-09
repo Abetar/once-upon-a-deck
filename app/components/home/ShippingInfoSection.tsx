@@ -32,7 +32,7 @@ export function ShippingInfoSection() {
         <div className="mb-10 flex justify-center">
           <div className="relative w-full max-w-xl aspect-[16/9] overflow-hidden rounded-3xl border border-white/10 bg-black/40 shadow-[0_0_40px_rgba(0,0,0,0.8)] backdrop-blur-md">
             <video
-              src="/shipping-hero-ship.mp4"
+              src="/shipping-hero-ship_new.mp4"
               autoPlay
               loop
               muted

@@ -183,7 +183,7 @@ export function Header() {
             </li>
             <li>
               <Link
-                href="https://wa.me/52XXXXXXXXXX"
+                href="https://wa.me/528110701423"
                 target="_blank"
                 className="mt-1 inline-flex w-full items-center justify-center rounded-full bg-[#25D366] px-3 py-2 text-xs font-semibold text-[#050816] hover:bg-[#1EB555]"
                 onClick={closeMenu}

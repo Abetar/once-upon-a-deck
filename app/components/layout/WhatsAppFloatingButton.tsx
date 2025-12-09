@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { PhoneCall } from "lucide-react";
 
-const WHATSAPP_NUMBER = "5210000000000"; // cámbialo por tu número real
+const WHATSAPP_NUMBER = "528110701423"; // cámbialo por tu número real
 
 export function WhatsAppFloatingButton() {
   const message = encodeURIComponent(
