@@ -19,7 +19,7 @@ const games = [
     image: "/games/yugioh-card.jpg",
   },
   {
-    slug: "magic-the-gathering",
+    slug: "magic",
     name: "Magic: The Gathering",
     image: "/games/magic-card.jpg",
   },
